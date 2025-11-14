@@ -1,0 +1,82 @@
+# Firebase Setup Instructions for RSVP Database
+
+## What You Need to Do
+
+Your wedding website now has database functionality! Follow these steps to enable RSVP saving.
+
+### 1. Create Firebase Project
+- Go to https://console.firebase.google.com/
+- Create a new project (name it "Wedding RSVP" or similar)
+- Wait for it to initialize
+
+### 2. Set Up Firestore Database
+- In Firebase Console, go to "Build" → "Firestore Database"
+- Click "Create database"
+- Select "Start in production mode"
+- Choose your region
+- Click "Create"
+
+### 3. Set Firestore Security Rules
+- Go to the "Rules" tab in Firestore
+- Replace everything with this code:
+
+```
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /rsvps/{document=**} {
+      allow create: if true;
+      allow read, update, delete: if false;
+    }
+  }
+}
+```
+
+- Click "Publish"
+
+### 4. Get Your Firebase Configuration
+- Click the gear icon (⚙️) in Firebase Console
+- Go to "Project settings"
+- Scroll down to "Your apps"
+- Copy your web app config (or create a web app if needed)
+- You'll see values like: apiKey, authDomain, projectId, etc.
+
+### 5. Create .env.local File
+In the main folder (wwrl), create a new file called `.env.local` and add:
+
+```
+REACT_APP_FIREBASE_API_KEY=your_api_key_here
+REACT_APP_FIREBASE_AUTH_DOMAIN=your_auth_domain_here
+REACT_APP_FIREBASE_PROJECT_ID=your_project_id_here
+REACT_APP_FIREBASE_STORAGE_BUCKET=your_storage_bucket_here
+REACT_APP_FIREBASE_MESSAGING_SENDER_ID=your_sender_id_here
+REACT_APP_FIREBASE_APP_ID=your_app_id_here
+```
+
+Replace each `your_xxx_here` with the actual values from your Firebase config.
+
+### 6. Restart Your App
+```
+npm start
+```
+
+Done! RSVPs will now save to your Firebase database.
+
+## How to View RSVPs
+
+1. Go to Firebase Console
+2. Select your project
+3. Go to "Firestore Database"
+4. Click on the "rsvps" collection
+5. See all responses with names, attendance, guest count, and timestamps
+
+## What Happens When Someone Submits
+
+- Their name, attendance status, and guest count are saved
+- Total guest count (them + additional guests) is calculated
+- Submission time is recorded
+- They see a confirmation message
+
+## Questions?
+
+Check the browser console (F12 → Console tab) for any error messages if something isn't working.
