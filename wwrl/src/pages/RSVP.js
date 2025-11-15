@@ -6,6 +6,7 @@ export default function RSVP() {
   const [name, setName] = useState('');
   const [attending, setAttending] = useState('yes');
   const [guests, setGuests] = useState(0);
+  const [guestNames, setGuestNames] = useState([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitMessage, setSubmitMessage] = useState('');
 
@@ -14,6 +15,13 @@ export default function RSVP() {
     setIsSubmitting(true);
     setSubmitMessage('');
 
+    // Check if all guest names are filled in
+    if (guests > 0 && guestNames.some(name => !name.trim())) {
+      setSubmitMessage('❌ Please enter names for all additional guests.');
+      setIsSubmitting(false);
+      return;
+    }
+
     try {
       // Add RSVP to Firestore
       const docRef = await addDoc(collection(db, 'rsvps'), {
@@ -21,6 +29,7 @@ export default function RSVP() {
         attending: attending,
         additionalGuests: parseInt(guests),
         totalGuests: parseInt(guests) + 1,
+        guestNames: guestNames.map(g => g.trim()).filter(g => g),
         timestamp: serverTimestamp(),
       });
 
@@ -31,6 +40,7 @@ export default function RSVP() {
       setName('');
       setAttending('yes');
       setGuests(0);
+      setGuestNames([]);
 
       // Clear message after 5 seconds
       setTimeout(() => setSubmitMessage(''), 5000);
@@ -40,6 +50,30 @@ export default function RSVP() {
     } finally {
       setIsSubmitting(false);
     }
+  }
+
+  function handleGuestCountChange(newCount) {
+    const count = parseInt(newCount) || 0;
+    setGuests(Math.min(count, 7)); // Cap at 7 additional guests
+    
+    // Adjust guest names array
+    let newGuestNames = [...guestNames];
+    if (newGuestNames.length < Math.min(count, 7)) {
+      // Add empty names if needed
+      while (newGuestNames.length < Math.min(count, 7)) {
+        newGuestNames.push('');
+      }
+    } else if (newGuestNames.length > Math.min(count, 7)) {
+      // Remove extra names
+      newGuestNames = newGuestNames.slice(0, Math.min(count, 7));
+    }
+    setGuestNames(newGuestNames);
+  }
+
+  function handleGuestNameChange(index, value) {
+    const newGuestNames = [...guestNames];
+    newGuestNames[index] = value;
+    setGuestNames(newGuestNames);
   }
 
   return (
@@ -72,12 +106,30 @@ export default function RSVP() {
           <input 
             type="number" 
             min="0" 
-            max="10"
+            max="7"
             value={guests} 
-            onChange={e=>setGuests(Number(e.target.value))}
+            onChange={e => handleGuestCountChange(e.target.value)}
             disabled={isSubmitting}
           />
         </label>
+        {guests > 0 && (
+          <fieldset style={{marginTop: '1.5rem', padding: '1rem', border: '1px solid var(--sage-green)', borderRadius: '8px'}}>
+            <legend style={{fontWeight: 'bold', color: 'var(--sage-green)', marginBottom: '1rem'}}>Guest Names</legend>
+            {guestNames.map((guestName, index) => (
+              <label key={index} style={{display: 'block', marginBottom: '0.75rem'}}>
+                Guest {index + 1} name
+                <input 
+                  type="text"
+                  value={guestName} 
+                  onChange={e => handleGuestNameChange(index, e.target.value)} 
+                  required
+                  disabled={isSubmitting}
+                  placeholder="Enter guest name"
+                />
+              </label>
+            ))}
+          </fieldset>
+        )}
         <button type="submit" className="button" disabled={isSubmitting}>
           {isSubmitting ? 'Submitting...' : 'Submit RSVP'}
         </button>

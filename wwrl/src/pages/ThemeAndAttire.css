@@ -1,0 +1,76 @@
+.theme-images.bridal-party img {
+  max-width: 500px;
+  width: 100%;
+  max-height: none;
+}
+/* Flex row for summer colors and colors to avoid */
+.theme-flex-row {
+  display: flex;
+  gap: 2rem;
+  justify-content: center;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+.theme-flex-col {
+  flex: 1 1 240px;
+  min-width: 220px;
+}
+.theme-images-vertical {
+  flex-direction: column;
+  align-items: center;
+}
+.theme-attire {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+  background: #faf8f3;
+  border-radius: 16px;
+  box-shadow: 0 2px 16px rgba(0,0,0,0.04);
+  font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+}
+.theme-attire h2 {
+  font-size: 2.2rem;
+  color: var(--sage-green, #6b8e23);
+  margin-bottom: 1.5rem;
+}
+.theme-section {
+  margin-bottom: 2.5rem;
+}
+.theme-section h3 {
+  font-size: 1.3rem;
+  color: #4b5d2a;
+  margin-bottom: 1rem;
+}
+.theme-images {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.2rem;
+  margin-bottom: 1rem;
+  justify-content: center;
+}
+.theme-images img {
+  max-width: 240px;
+  width: 100%;
+  border-radius: 10px;
+  background: transparent;
+  object-fit: contain;
+  max-height: 320px;
+}
+.contact-section {
+  background: #f3f7e7;
+  padding: 1rem;
+  border-radius: 10px;
+  box-shadow: 0 1px 6px rgba(0,0,0,0.03);
+}
+@media (max-width: 600px) {
+  .theme-attire {
+    padding: 1rem 0.5rem;
+  }
+  .theme-images {
+    flex-direction: column;
+    align-items: center;
+  }
+  .theme-images img {
+    max-width: 95vw;
+  }
+}

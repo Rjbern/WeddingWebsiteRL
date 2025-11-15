@@ -7,6 +7,7 @@ import Home from './pages/Home';
 import RSVP from './pages/RSVP';
 import Venue from './pages/Venue';
 import Schedule from './pages/Schedule';
+import ThemeAndAttire from './pages/ThemeAndAttire';
 
 export default function App() {
   return (
@@ -19,6 +20,7 @@ export default function App() {
           <Route path="/rsvp" element={<RSVP />} />
           <Route path="/venue" element={<Venue />} />
           <Route path="/schedule" element={<Schedule />} />
+          <Route path="/theme-and-attire" element={<ThemeAndAttire />} />
         </Routes>
       </main>
       <Footer />
