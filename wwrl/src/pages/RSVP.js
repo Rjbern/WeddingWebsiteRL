@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import './RSVP.css';
 import { db } from '../firebase';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 
@@ -115,19 +116,21 @@ export default function RSVP() {
         {guests > 0 && (
           <fieldset style={{marginTop: '1.5rem', padding: '1rem', border: '1px solid var(--sage-green)', borderRadius: '8px'}}>
             <legend style={{fontWeight: 'bold', color: 'var(--sage-green)', marginBottom: '1rem'}}>Guest Names</legend>
-            {guestNames.map((guestName, index) => (
-              <label key={index} style={{display: 'block', marginBottom: '0.75rem'}}>
-                Guest {index + 1} name
-                <input 
-                  type="text"
-                  value={guestName} 
-                  onChange={e => handleGuestNameChange(index, e.target.value)} 
-                  required
-                  disabled={isSubmitting}
-                  placeholder="Enter guest name"
-                />
-              </label>
-            ))}
+            <div className="guest-names-grid">
+              {guestNames.map((guestName, index) => (
+                <label key={index}>
+                  Guest {index + 1} name
+                  <input 
+                    type="text"
+                    value={guestName} 
+                    onChange={e => handleGuestNameChange(index, e.target.value)} 
+                    required
+                    disabled={isSubmitting}
+                    placeholder="Enter guest name"
+                  />
+                </label>
+              ))}
+            </div>
           </fieldset>
         )}
         <button type="submit" className="button" disabled={isSubmitting}>

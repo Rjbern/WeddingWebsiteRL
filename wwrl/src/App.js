@@ -8,6 +8,7 @@ import RSVP from './pages/RSVP';
 import Venue from './pages/Venue';
 import Schedule from './pages/Schedule';
 import ThemeAndAttire from './pages/ThemeAndAttire';
+import FAQ from './pages/FAQ';
 
 export default function App() {
   return (
@@ -18,9 +19,10 @@ export default function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/rsvp" element={<RSVP />} />
+          <Route path="/theme-and-attire" element={<ThemeAndAttire />} />
           <Route path="/venue" element={<Venue />} />
           <Route path="/schedule" element={<Schedule />} />
-          <Route path="/theme-and-attire" element={<ThemeAndAttire />} />
+          <Route path="/faq" element={<FAQ />} />
         </Routes>
       </main>
       <Footer />
