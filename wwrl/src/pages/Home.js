@@ -25,7 +25,7 @@ export default function Home() {
             <li><strong>Location: </strong>Muskegon, MI</li>
           </ul>
           <div style={{textAlign: 'center', marginTop: '2.5rem', position: 'relative', zIndex: 1}}>
-            <Link to="/rsvp" className="button">✨ RSVP Now ✨</Link>
+            <Link to="/rsvp" className="button">✦ RSVP Now ✦</Link>
           </div>
         </div>
       </div>
