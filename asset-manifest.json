@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/WeddingWebsiteRL/static/css/main.e2635b86.css",
-    "main.js": "/WeddingWebsiteRL/static/js/main.92ced780.js",
+    "main.js": "/WeddingWebsiteRL/static/js/main.366a4281.js",
     "index.html": "/WeddingWebsiteRL/index.html",
     "main.e2635b86.css.map": "/WeddingWebsiteRL/static/css/main.e2635b86.css.map",
-    "main.92ced780.js.map": "/WeddingWebsiteRL/static/js/main.92ced780.js.map"
+    "main.366a4281.js.map": "/WeddingWebsiteRL/static/js/main.366a4281.js.map"
   },
   "entrypoints": [
     "static/css/main.e2635b86.css",
-    "static/js/main.92ced780.js"
+    "static/js/main.366a4281.js"
   ]
 }
